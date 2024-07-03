@@ -58,6 +58,10 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm install
+      - name: Create env file
+        run: |
+          echo "TEST_MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}" > ../backend/.env
+          echo "SECRET=${{ secrets.SECRET }}" >> ../backend/.env
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run playwright tests
