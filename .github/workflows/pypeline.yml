@@ -24,7 +24,9 @@ jobs:
       - name: Check style
         run: npm run lint
       - name: Run tests
-        run: npm run test
+        env:
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: npm test
       - name: Build UI
         run: npm run build-ui
       - name: Deploy
