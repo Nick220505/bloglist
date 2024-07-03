@@ -77,5 +77,6 @@ module.exports = defineConfig({
       'cd ../backend && npm install && npm run build-ui && npm run start:test',
     url: 'http://localhost:3003',
     reuseExistingServer: !process.env.CI,
+    timeout: 120000,
   },
 })
