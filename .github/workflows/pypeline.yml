@@ -9,7 +9,25 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  deployment-pipeline:
+  backend_checks:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - name: Install dependencies
+        run: npm install
+      - name: Check style
+        run: npm run lint
+      - name: Create env file
+        run: |
+          echo "TEST_MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}" > .env
+          echo "SECRET=${{ secrets.SECRET }}" >> .env
+      - name: Run tests
+        run: npm test
+
+  deployment_pipeline:
+    needs: [backend_checks]
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -21,14 +39,6 @@ jobs:
           node-version: 20
       - name: Install dependencies
         run: npm install
-      - name: Check style
-        run: npm run lint
-      - name: Create env file
-        run: |
-          echo "TEST_MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}" > .env
-          echo "SECRET=${{ secrets.SECRET }}" >> .env
-      - name: Run tests
-        run: npm test
       - name: Build UI
         run: npm run build-ui
       - name: Deploy
@@ -39,7 +49,7 @@ jobs:
           curl "${deploy_url}"
 
   tag_release:
-    needs: [deployment-pipeline]
+    needs: [deployment_pipeline]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
