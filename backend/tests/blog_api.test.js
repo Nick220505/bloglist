@@ -131,7 +131,6 @@ describe('when there is initially some blogs saved', () => {
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length)
     })
   })
-
   describe('update of a blog', () => {
     test('succeeds with a valid id', async () => {
       const blogsAtStart = await helper.blogsInDb()
@@ -146,6 +145,7 @@ describe('when there is initially some blogs saved', () => {
 
       const response = await api
         .put(`/api/blogs/${blogToUpdate.id}`)
+        .set('Authorization', `Bearer ${await getToken()}`)
         .send(newBlog)
         .expect(200)
         .expect('Content-Type', /application\/json/)
@@ -153,7 +153,6 @@ describe('when there is initially some blogs saved', () => {
       assert.strictEqual(response.body.likes, newBlog.likes)
     })
   })
-
   describe('deletion of a blog', async () => {
     test('succeeds with status code 204 if id is valid', async () => {
       const blogsAtStart = await helper.blogsInDb()

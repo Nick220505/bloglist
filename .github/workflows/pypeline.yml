@@ -23,7 +23,9 @@ jobs:
         run: npm install
       - name: Check style
         run: npm run lint
-      - name: test
+      - name: Start test environment
+        run: npm run start:test
+      - name: Run tests
         run: npm run test
       - name: Build UI
         run: npm run build-ui
