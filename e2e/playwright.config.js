@@ -73,7 +73,8 @@ module.exports = defineConfig({
 
   /* Run your local dev server before starting the tests */
   webServer: {
-    command: 'cd ../backend && npm run start:test',
+    command:
+      'cd ../backend && npm install && npm run build-ui && npm run start:test',
     url: 'http://localhost:3003',
     reuseExistingServer: !process.env.CI,
   },
