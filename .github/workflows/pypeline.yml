@@ -43,6 +43,8 @@ jobs:
         run: npm install
       - name: Check style
         run: npm run lint
+      - name: Run tests
+        run: npm test
 
   deployment_pipeline:
     needs: [backend_checks]
