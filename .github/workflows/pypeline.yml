@@ -47,7 +47,7 @@ jobs:
         run: npm test
 
   deployment_pipeline:
-    needs: [backend_checks]
+    needs: [backend_checks, frontend_checks]
     runs-on: ubuntu-latest
     defaults:
       run:
