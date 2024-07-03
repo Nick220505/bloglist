@@ -24,10 +24,8 @@ jobs:
       - name: Check style
         run: npm run lint
       - name: Create env file
-        uses: SpicyPizza/create-envfile@v1
-        with:
-          envkey_MONGODB_URI: ${{ secrets.MONGODB_URI }}
-          file_name: .env
+        run: |
+          echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" > backend/.env
       - name: Run tests
         run: npm test
       - name: Build UI
