@@ -27,9 +27,8 @@ jobs:
         run: |
           touch .env
           echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
+          cat .env
       - name: Run tests
-        env:
-          MONGODB_URI: ${{ secrets.MONGODB_URI }}
         run: npm test
       - name: Build UI
         run: npm run build-ui
