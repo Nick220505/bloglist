@@ -12,12 +12,14 @@ const middleware = require('./utils/middleware')
 
 logger.info('connecting to', MONGODB_URI)
 
-mongoose.connect(MONGODB_URI)
+mongoose
+  .connect(MONGODB_URI)
   .then(() => logger.info('connected to MongoDB'))
-  .catch(error => logger.error('error connecting to MongoDB:', error.message))
+  .catch((error) => logger.error('error connecting to MongoDB:', error.message))
 
 app.use(cors())
 app.use(express.json())
+app.use(express.static('dist'))
 app.use(middleware.requestLogger)
 app.use(middleware.tokenExtractor)
 
