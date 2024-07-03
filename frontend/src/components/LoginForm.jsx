@@ -7,14 +7,15 @@ import {
   Container,
   Card,
   CardContent,
-  FormControl,
   Typography,
   Button,
   TextField,
   Box,
 } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const LoginForm = () => {
+  const navigate = useNavigate()
   const userDispatch = useUserDispatch()
   const notificationDispatch = useNotificationDispatch()
   const [username, setUsername] = useState('')
@@ -28,6 +29,7 @@ const LoginForm = () => {
 
       blogService.setToken(user.token)
       userDispatch({ type: 'SET', payload: user })
+      navigate('/')
     } catch (exception) {
       notificationDispatch({
         type: 'SET',
@@ -60,7 +62,7 @@ const LoginForm = () => {
           <form onSubmit={handleLogin}>
             <TextField
               type="text"
-              data-testid="username"
+              id="username"
               name="Username"
               label="Username"
               value={username}
@@ -71,7 +73,7 @@ const LoginForm = () => {
             />
             <TextField
               type="password"
-              data-testid="password"
+              id="password"
               name="Password"
               label="Password"
               value={password}
