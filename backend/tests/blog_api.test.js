@@ -16,13 +16,15 @@ describe('when there is initially some blogs saved', () => {
     let user = new User({
       username: 'Nick220505',
       passwordHash: await bcrypt.hash('123', 10),
-      name: 'Nicolas Pardo'
+      name: 'Nicolas Pardo',
     })
     await user.save()
-    await Promise.all(helper.initialBlogs.map(blog => {
-      blog.user = user._id
-      return new Blog(blog).save()
-    }))
+    await Promise.all(
+      helper.initialBlogs.map((blog) => {
+        blog.user = user._id
+        return new Blog(blog).save()
+      })
+    )
     const blogs = await Blog.find({})
     for (const blog of blogs) {
       user = await User.findOne({ username: 'Nick220505' })
@@ -32,12 +34,10 @@ describe('when there is initially some blogs saved', () => {
   })
 
   const getToken = async () => {
-    const response = await api
-      .post('/api/login')
-      .send({
-        username: 'Nick220505',
-        password: '123'
-      })
+    const response = await api.post('/api/login').send({
+      username: 'Nick220505',
+      password: '123',
+    })
 
     const { token } = response.body
     return token
@@ -52,7 +52,7 @@ describe('when there is initially some blogs saved', () => {
 
   test('unique identifier property of blog posts is named id', async () => {
     const response = await api.get('/api/blogs')
-    response.body.forEach(blog => assert(Object.keys(blog).includes('id')))
+    response.body.forEach((blog) => assert(Object.keys(blog).includes('id')))
   })
 
   describe('addition of a new blog', () => {
@@ -74,7 +74,7 @@ describe('when there is initially some blogs saved', () => {
       const blogsAtEnd = await helper.blogsInDb()
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length + 1)
 
-      const titles = blogsAtEnd.map(blog => blog.title)
+      const titles = blogsAtEnd.map((blog) => blog.title)
       assert(titles.includes(newBlog.title))
     })
 
@@ -82,7 +82,7 @@ describe('when there is initially some blogs saved', () => {
       const newBlog = {
         title: 'First class tests',
         author: 'Robert C. Martin',
-        url: 'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.html'
+        url: 'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.html',
       }
 
       const response = await api
@@ -141,7 +141,7 @@ describe('when there is initially some blogs saved', () => {
         title: blogToUpdate.title,
         author: blogToUpdate.author,
         url: blogToUpdate.url,
-        likes: 2
+        likes: 2,
       }
 
       const response = await api
@@ -167,7 +167,7 @@ describe('when there is initially some blogs saved', () => {
       const blogsAtEnd = await helper.blogsInDb()
       assert.strictEqual(blogsAtEnd.length, helper.initialBlogs.length - 1)
 
-      const titles = blogsAtEnd.map(blog => blog.title)
+      const titles = blogsAtEnd.map((blog) => blog.title)
       assert(!titles.includes(blogToDelete.title))
     })
   })

@@ -1,14 +1,14 @@
 const _ = require('lodash')
 
-const dummy = blogs => {
+const dummy = (blogs) => {
   return blogs.length + 1
 }
 
-const totalLikes = blogs => {
-  return blogs.reduce((total, blog) => total += blog.likes, 0)
+const totalLikes = (blogs) => {
+  return blogs.reduce((total, blog) => (total += blog.likes), 0)
 }
 
-const favoriteBlog = blogs => {
+const favoriteBlog = (blogs) => {
   if (blogs.length === 0) {
     return null
   }
@@ -17,7 +17,7 @@ const favoriteBlog = blogs => {
   })
 }
 
-const mostBlogs = blogs => {
+const mostBlogs = (blogs) => {
   const blogCountsByAuthor = _.countBy(blogs, _.property('author'))
   const mostBlogsObj = {}
   _.forEach(blogCountsByAuthor, (blogs, author) => {
@@ -29,7 +29,7 @@ const mostBlogs = blogs => {
   return mostBlogsObj
 }
 
-const mostLikes = blogs => {
+const mostLikes = (blogs) => {
   const blogsByAuthor = _.groupBy(blogs, 'author')
   const mostLikesObj = {}
   _.forEach(blogsByAuthor, (blogs, author) => {

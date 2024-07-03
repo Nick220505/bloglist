@@ -14,7 +14,7 @@ describe('when there is initially one user in db', () => {
     await new User({
       username: 'Nick220505',
       passwordHash: await bcrypt.hash('123', 10),
-      name: 'Nicolas Pardo'
+      name: 'Nicolas Pardo',
     }).save()
   })
 
@@ -26,7 +26,7 @@ describe('when there is initially one user in db', () => {
       .send({
         username: 'Harry',
         password: '456',
-        name: 'Harry Potter'
+        name: 'Harry Potter',
       })
       .expect(201)
       .expect('Content-Type', /application\/json/)
@@ -34,7 +34,7 @@ describe('when there is initially one user in db', () => {
     const usersAtEnd = await helper.usersInDb()
     assert.strictEqual(usersAtEnd.length, usersAtStart.length + 1)
 
-    const usernames = usersAtEnd.map(u => u.username)
+    const usernames = usersAtEnd.map((u) => u.username)
     assert(usernames.includes('Harry'))
   })
 
@@ -46,7 +46,7 @@ describe('when there is initially one user in db', () => {
         .post('/api/users')
         .send({
           password: '456',
-          name: 'Harry Potter'
+          name: 'Harry Potter',
         })
         .expect(400)
 
@@ -63,7 +63,7 @@ describe('when there is initially one user in db', () => {
         .post('/api/users')
         .send({
           username: 'Harry',
-          name: 'Harry Potter'
+          name: 'Harry Potter',
         })
         .expect(400)
 
@@ -81,7 +81,7 @@ describe('when there is initially one user in db', () => {
         .send({
           username: 'Nick220505',
           password: '456',
-          name: 'Nicolas Pardo'
+          name: 'Nicolas Pardo',
         })
         .expect(400)
 
@@ -99,11 +99,15 @@ describe('when there is initially one user in db', () => {
         .send({
           username: 'ab',
           password: '123',
-          name: 'Harry Potter'
+          name: 'Harry Potter',
         })
         .expect(400)
 
-      assert(result.body.error.includes('Path `username` (`ab`) is shorter than the minimum allowed length (3).'))
+      assert(
+        result.body.error.includes(
+          'Path `username` (`ab`) is shorter than the minimum allowed length (3).'
+        )
+      )
 
       const usersAtEnd = await helper.usersInDb()
       assert.strictEqual(usersAtStart.length, usersAtEnd.length)
@@ -117,18 +121,21 @@ describe('when there is initially one user in db', () => {
         .send({
           username: 'Harry',
           password: '12',
-          name: 'Harry Potter'
+          name: 'Harry Potter',
         })
         .expect(400)
 
-      assert(result.body.error.includes('password must be at least 3 characters long'))
+      assert(
+        result.body.error.includes(
+          'password must be at least 3 characters long'
+        )
+      )
 
       const usersAtEnd = await helper.usersInDb()
       assert.strictEqual(usersAtStart.length, usersAtEnd.length)
     })
   })
 })
-
 
 after(async () => {
   await mongoose.connection.close()

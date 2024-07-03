@@ -3,7 +3,6 @@ const assert = require('node:assert')
 const { mostLikes } = require('../utils/list_helper')
 
 describe('most likes', () => {
-
   test('of an empty list of blogs is an empty object', () => {
     const blogs = []
     assert.deepStrictEqual(mostLikes(blogs), {})
@@ -17,12 +16,12 @@ describe('most likes', () => {
         author: 'Michael Chan',
         url: 'https://reactpatterns.com/',
         likes: 7,
-        __v: 0
-      }
+        __v: 0,
+      },
     ]
     assert.deepStrictEqual(mostLikes(blogs), {
       author: 'Michael Chan',
-      likes: 7
+      likes: 7,
     })
   })
 
@@ -34,7 +33,7 @@ describe('most likes', () => {
         author: 'Edsger W. Dijkstra',
         url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
         likes: 12,
-        __v: 0
+        __v: 0,
       },
       {
         _id: '5a422b891b54a676234d17fa',
@@ -42,7 +41,7 @@ describe('most likes', () => {
         author: 'Robert C. Martin',
         url: 'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.html',
         likes: 10,
-        __v: 0
+        __v: 0,
       },
       {
         _id: '5a422bc61b54a676234d17fc',
@@ -50,11 +49,15 @@ describe('most likes', () => {
         author: 'Robert C. Martin',
         url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
         likes: 2,
-        __v: 0
-      }
+        __v: 0,
+      },
     ]
     const mostLikesObj = mostLikes(blogs)
-    assert.ok(mostLikesObj.likes === 12 && (mostLikesObj.author === 'Edsger W. Dijkstra' || mostLikesObj.author === 'Robert C. Martin'))
+    assert.ok(
+      mostLikesObj.likes === 12 &&
+        (mostLikesObj.author === 'Edsger W. Dijkstra' ||
+          mostLikesObj.author === 'Robert C. Martin')
+    )
   })
 
   test('of a normal list of blogs is correct', () => {
@@ -65,7 +68,7 @@ describe('most likes', () => {
         author: 'Michael Chan',
         url: 'https://reactpatterns.com/',
         likes: 7,
-        __v: 0
+        __v: 0,
       },
       {
         _id: '5a422aa71b54a676234d17f8',
@@ -73,7 +76,7 @@ describe('most likes', () => {
         author: 'Edsger W. Dijkstra',
         url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
         likes: 5,
-        __v: 0
+        __v: 0,
       },
       {
         _id: '5a422b3a1b54a676234d17f9',
@@ -81,7 +84,7 @@ describe('most likes', () => {
         author: 'Edsger W. Dijkstra',
         url: 'http://www.cs.utexas.edu/~EWD/transcriptions/EWD08xx/EWD808.html',
         likes: 12,
-        __v: 0
+        __v: 0,
       },
       {
         _id: '5a422b891b54a676234d17fa',
@@ -89,7 +92,7 @@ describe('most likes', () => {
         author: 'Robert C. Martin',
         url: 'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.html',
         likes: 10,
-        __v: 0
+        __v: 0,
       },
       {
         _id: '5a422ba71b54a676234d17fb',
@@ -97,7 +100,7 @@ describe('most likes', () => {
         author: 'Robert C. Martin',
         url: 'http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html',
         likes: 0,
-        __v: 0
+        __v: 0,
       },
       {
         _id: '5a422bc61b54a676234d17fc',
@@ -105,12 +108,12 @@ describe('most likes', () => {
         author: 'Robert C. Martin',
         url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html',
         likes: 2,
-        __v: 0
-      }
+        __v: 0,
+      },
     ]
     assert.deepStrictEqual(mostLikes(blogs), {
       author: 'Edsger W. Dijkstra',
-      likes: 17
+      likes: 17,
     })
   })
 })
