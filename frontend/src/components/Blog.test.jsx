@@ -17,7 +17,7 @@ describe('<Blog />', () => {
         <Blog blog={blog} />
       </MemoryRouter>,
     )
-    const linkElement = screen.getByRole('link', { name: 'x' })
+    const linkElement = screen.getByRole('link', { name: blog.title })
     expect(linkElement).toBeInTheDocument()
     expect(linkElement).toHaveAttribute('href', `/blogs/${blog.id}`)
   })
