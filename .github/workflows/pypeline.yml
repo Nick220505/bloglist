@@ -46,8 +46,19 @@ jobs:
       - name: Run tests
         run: npm test
 
+  integration_tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./e2e
+    steps:
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run playwright tests
+        run: npm test
+
   deployment_pipeline:
-    needs: [backend_checks, frontend_checks]
+    needs: [backend_checks, frontend_checks, integration_tests]
     runs-on: ubuntu-latest
     defaults:
       run:
