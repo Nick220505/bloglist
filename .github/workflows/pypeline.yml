@@ -29,6 +29,7 @@ jobs:
           echo "SECRET=${{ secrets.SECRET }}" >> .env
       - name: Run tests
         run: npm test
+
   frontend_checks:
     runs-on: ubuntu-latest
     defaults:
@@ -62,7 +63,6 @@ jobs:
         run: |
           echo "TEST_MONGODB_URI=${{ secrets.TEST_MONGODB_URI }}" > ../backend/.env
           echo "SECRET=${{ secrets.SECRET }}" >> ../backend/.env
-        working-directory: ./e2e
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run playwright tests
