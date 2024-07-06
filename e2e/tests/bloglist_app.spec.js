@@ -113,7 +113,7 @@ describe('Blog app', () => {
       });
       await loginWith(page, 'newUser', '456');
       await expect(page.getByText('Blog App')).toBeVisible();
-      await expect(page.getByText('Another user logged i')).toBeVisible();
+      await expect(page.getByText('Another user logged in')).toBeVisible();
       await page.goto('/');
       await page.getByRole('link', { name: 'This is a new blog' }).click();
       await expect(
